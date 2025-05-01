@@ -1,0 +1,7 @@
+{
+  "ami_ids": ["ami-0c02fb55956c7d316"],
+  "instance_types": ["t2.micro", "t3.micro"],
+  "key_names": ["my-key-pair"],
+  "security_group_ids": ["sg-0abc1234567890def"],
+  "subnet_ids": ["subnet-0123456789abcdef0"]
+}
