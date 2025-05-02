@@ -107,18 +107,28 @@ def create_instance(params, username):
 
 
 def manage_instance(action, instance_id, username):
-    if not is_managed(instance_id, username):
-        return response(403, "Unauthorized instance")
+    users_instances =  json.loads(get_metadata(username)['body'])
+    valid_instance_id = False
+    for user_instance in users_instances:
+        if instance_id == user_instance["instance_id"]:
+            valid_instance_id = True
+    if valid_instance_id:
+        if not is_managed(instance_id, username):
+            return response(403, "Unauthorized instance")
 
-    if action == "start":
-        ec2.start_instances(InstanceIds=[instance_id])
-        return response(200, f"Instance {instance_id} started")
-    elif action == "stop":
-        ec2.stop_instances(InstanceIds=[instance_id])
-        return response(200, f"Instance {instance_id} stopped")
-    elif action == "delete":
-        ec2.terminate_instances(InstanceIds=[instance_id])
-        return response(200, f"Instance {instance_id} terminated")
+        if action == "start":
+            ec2.start_instances(InstanceIds=[instance_id])
+            return response(200, f"Instance {instance_id} started")
+        elif action == "stop":
+            ec2.stop_instances(InstanceIds=[instance_id])
+            return response(200, f"Instance {instance_id} stopped")
+        elif action == "delete":
+            ec2.terminate_instances(InstanceIds=[instance_id])
+            return response(200, f"Instance {instance_id} terminated")
+        else:
+            return response(400, "Invalid action")
+    else:
+        return response(500, "No instances found with this instance id")
 
 def is_managed(instance_id, username):
     instance = ec2.describe_instances(InstanceIds=[instance_id])['Reservations'][0]['Instances'][0]

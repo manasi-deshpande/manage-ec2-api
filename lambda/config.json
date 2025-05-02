@@ -1,7 +1,7 @@
 {
-  "ami_ids": ["ami-0c02fb55956c7d316"],
+  "ami_ids": ["ami-0f88e80871fd81e91","ami-084568db4383264d4"],
   "instance_types": ["t2.micro", "t3.micro"],
-  "key_names": ["my-key-pair"],
-  "security_group_ids": ["sg-0abc1234567890def"],
-  "subnet_ids": ["subnet-0123456789abcdef0"]
+  "key_names": ["ec2managekey"],
+  "security_group_ids": ["sg-0b61d89ad03ba5cb3"],
+  "subnet_ids": ["subnet-081c4eb7769a529ea","subnet-0477aa2ee7c7ee93c"]
 }
